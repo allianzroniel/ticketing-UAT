@@ -1,0 +1,4 @@
+"require": {
+    "ext-pdo_mysql": "*",
+    "ext-mysqli": "*"
+}
