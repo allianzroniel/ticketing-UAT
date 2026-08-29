@@ -1,10 +1,14 @@
 FROM php:8.2-apache
 
-# Install system dependencies and MySQL drivers
+# Install database drivers
 RUN docker-php-ext-install pdo pdo_mysql mysqli
 
-# Copy local project files into the Apache container web root
+# Copy application code
 COPY . /var/www/html/
-
-# Set permissions so Apache can read/write smoothly
 RUN chown -R www-data:www-data /var/www/html
+
+# Configure Apache to listen on Railway's dynamic PORT environment variable
+RUN sed -i 's/80/${PORT}/g' /etc/apache2/ports.conf /etc/apache2/sites-available/000-default.conf
+
+# Start Apache in the foreground
+CMD apache2-foreground
