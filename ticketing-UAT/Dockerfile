@@ -7,8 +7,11 @@ RUN docker-php-ext-install pdo pdo_mysql mysqli
 COPY . /var/www/html/
 RUN chown -R www-data:www-data /var/www/html
 
-# Configure Apache to listen on Railway's dynamic PORT environment variable
-RUN sed -i 's/80/${PORT}/g' /etc/apache2/ports.conf /etc/apache2/sites-available/000-default.conf
+# Fix Apache MPM module conflict
+RUN a2dismod mpm_event mpm_worker && a2enmod mpm_prefork
 
-# Start Apache in the foreground
-CMD apache2-foreground
+# Configure Apache to use Railway's dynamic PORT variable
+RUN sed -i "s/80/\${PORT}/g" /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf
+
+# Start Apache
+CMD ["apache2-foreground"]
