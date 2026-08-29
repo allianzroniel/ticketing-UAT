@@ -1,18 +1,19 @@
 <?php
-// db_config.php - Database connection settings
+// Check if running on Railway or Locally in XAMPP
+$host = getenv('MYSQLHOST') ?: 'mysql.railway.internal';
+$port = getenv('MYSQLPORT') ?: '3306';
+$db   = getenv('MYSQLDATABASE') ?: 'railway';
+$user = getenv('MYSQLUSER') ?: 'root';
+$pass = getenv('MYSQLPASSWORD') ?: 'mqlULJvqPGRiFGjQtFbLgwUlDriAonij';
 
-define('DB_HOST', 'mysql.railway.internal');
-define('DB_USER', 'root');
-define('DB_PORT', '3306');
-define('DB_PASS', 'mqlULJvqPGRiFGjQtFbLgwUlDriAonij');
-define('DB_NAME', 'railway');
-
-function getDBConnection() {
-    $conn = new mysqli(DB_HOST, DB_USER, DB_PORT, DB_PASS, DB_NAME);
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    return $conn;
+try {
+    // If using PDO:
+    $dsn = "mysql:host=$host;port=$port;dbname=$db;charset=utf8mb4";
+    $pdo = new PDO($dsn, $user, $pass, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    ]);
+} catch (\PDOException $e) {
+    die("Connection failed: " . $e->getMessage());
 }
+?>
