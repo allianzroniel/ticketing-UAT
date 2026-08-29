@@ -1,13 +1,12 @@
 <?php
-// Check if running on Railway or Locally in XAMPP
-$host = getenv('MYSQLHOST') ?: 'mysql.railway.internal';
-$port = getenv('MYSQLPORT') ?: '3306';
-$db   = getenv('MYSQLDATABASE') ?: 'railway';
-$user = getenv('MYSQLUSER') ?: 'root';
-$pass = getenv('MYSQLPASSWORD') ?: 'mqlULJvqPGRiFGjQtFbLgwUlDriAonij';
+// Use Railway's environment variables if available, otherwise fallback to XAMPP local settings
+$host = $_SERVER['MYSQLHOST'] ?? getenv('MYSQLHOST') ?: 'mysql.railway.internal';
+$port = $_SERVER['MYSQLPORT'] ?? getenv('MYSQLPORT') ?: '3306';
+$db   = $_SERVER['MYSQLDATABASE'] ?? getenv('MYSQLDATABASE') ?: 'railway';
+$user = $_SERVER['MYSQLUSER'] ?? getenv('MYSQLUSER') ?: 'root';
+$pass = $_SERVER['MYSQLPASSWORD'] ?? getenv('MYSQLPASSWORD') ?: 'mqlULJvqPGRiFGjQtFbLgwUlDriAonij';
 
 try {
-    // If using PDO:
     $dsn = "mysql:host=$host;port=$port;dbname=$db;charset=utf8mb4";
     $pdo = new PDO($dsn, $user, $pass, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
