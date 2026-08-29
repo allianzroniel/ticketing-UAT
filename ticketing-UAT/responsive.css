@@ -1,0 +1,165 @@
+/* Shared responsive layout rules */
+html, body {
+    min-width: 0;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+img, video, iframe {
+    max-width: 100%;
+}
+
+header {
+    min-width: 0;
+}
+
+header nav {
+    min-width: 0;
+}
+
+main {
+    width: 100%;
+    max-width: 1200px;
+}
+
+input, select, textarea, button {
+    max-width: 100%;
+}
+
+.grid-2,
+.detail-grid {
+    min-width: 0;
+}
+
+.card,
+.stat-card,
+.login-box,
+form {
+    min-width: 0;
+}
+
+.table-scroll,
+.table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 1000px) {
+    header {
+        align-items: flex-start;
+    }
+
+    header nav {
+        flex: 1 1 100%;
+        justify-content: flex-start;
+    }
+
+    .grid-2 {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 720px) {
+    header {
+        padding: 16px 20px;
+        gap: 10px;
+    }
+
+    header nav {
+        width: 100%;
+        gap: 8px;
+    }
+
+    header nav > span {
+        flex-basis: 100%;
+        overflow-wrap: anywhere;
+    }
+
+    header nav .btn,
+    header nav > a {
+        flex: 1 1 140px;
+        text-align: center;
+    }
+
+    main {
+        padding: 20px;
+    }
+
+    .page-head {
+        gap: 16px;
+    }
+
+    .page-head > * {
+        max-width: 100%;
+    }
+
+    .stat-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .stat-card {
+        padding: 14px;
+    }
+
+    .stat-card .value {
+        font-size: 24px;
+    }
+
+    .card,
+    form,
+    .login-box {
+        padding: 18px;
+    }
+
+    .report-box,
+    .chart-filter {
+        align-items: stretch;
+    }
+
+    .report-box .form-group,
+    .chart-filter .fg {
+        flex: 1 1 140px;
+        min-width: 0;
+    }
+
+    .report-box input,
+    .chart-filter input,
+    .report-box button,
+    .chart-filter button {
+        width: 100%;
+    }
+
+    table {
+        min-width: 680px;
+    }
+
+    .campaigns-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .ticket-head {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 390px) {
+    main {
+        padding: 16px;
+    }
+
+    .stat-row {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .card,
+    form,
+    .login-box {
+        padding: 16px;
+    }
+}
